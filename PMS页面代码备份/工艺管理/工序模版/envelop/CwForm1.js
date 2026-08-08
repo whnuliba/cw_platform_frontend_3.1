@@ -1,0 +1,47 @@
+{
+    lazy: false,
+        formStyle: { },
+    formModes: [
+        {
+            size: 'mini',
+            loading: false,
+            display: 'inline',
+            title: '流程参数',
+            dialogVisible: 'test',
+            dialogShow: true,
+            labelWidth: '170px',
+            cancelBtnShow: true,
+            forms: [
+                { field: 'thicknessTestingPressureLower', title: '厚度测试压力实际值下限', minWidth: 120, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: true },
+                { field: 'thicknessTestingPressureUpper', title: '厚度测试压力实际值上限', minWidth: 100, align: "center", queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'insulationTestPressureLower', title: '绝缘测试压力实际值下限', minWidth: 100, align: "center", queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'insulationTestPressureUpper', title: '绝缘测试压力实际值上限', minWidth: 100, align: "center", queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'insulationResistanceTestLower', title: '绝缘电阻测试电压实际值下限', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'insulationResistanceTestUpper', title: '绝缘电阻测试电压实际值上限', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'insulationWithstandVoltageTestLower', title: '绝缘耐压测试实际值下限', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'insulationWithstandVoltageTestUpper', title: '绝缘耐压测试实际值上限', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'insulationResistanceLower', title: '绝缘电阻下限', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'insulationResistanceUpper', title: '绝缘电阻上限', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'leakageCurrentLower', title: '漏电流下限', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'leakageCurrentUpper', title: '漏电流上限', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'batteryWidthLower', title: '电池宽度下限', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'batteryWidthUpper', title: '电池宽度上限', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'batteryThicknessLower', title: '电池厚度下限', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'batteryThicknessUpper', title: '电池厚度上限', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'positiveElectrodeShoulderHeightLower', title: '正极肩高下限', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'positiveElectrodeShoulderHeightUpper', title: '正极肩高上限', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'negativeElectrodeShoulderHeightLower', title: '负极肩高下限', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'negativeElectrodeShoulderHeightUpper', title: '负极肩高上限', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'positivePoleHeightLower', title: '正极极柱高度下限', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'positivePoleHeightUpper', title: '正极极柱高度上限', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'negativePoleHeightLower', title: '负极极柱高度下限', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'negativePoleHeightUpper', title: '负极极柱高度上限', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'positiveElectrodeShellPressureLower', title: '正极对壳体电压下限', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'positiveElectrodeShellPressureUpper', title: '正极对壳体电压上限', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'negativeShellPressureLower', title: '负极对壳体电压下限', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'negativeShellPressureUpper', title: '负极对壳体电压上限', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+            ],
+
+        }
+    ]
+}

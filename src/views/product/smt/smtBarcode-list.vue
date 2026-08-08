@@ -1,0 +1,127 @@
+<template>
+  <div class="app-container">
+    <div class="container-body-top">
+      <el-tabs v-model="activeName" type="border-card">
+        <el-tab-pane label="生产信息" name="first">
+          <div>
+            <component :is="smtBarcodeInfoComponents" ref="barCodeInfoId" :barCodeInfoId="barCodeInfoId"  @barCodeInfoRowClick = "myChangeBarCodeInfoItem"> </component >
+          </div>
+        </el-tab-pane>
+      </el-tabs>
+    </div>
+    <div class="container-body-bottom" style="min-height:300px">
+      <el-tabs v-model="activeName1" type="border-card"   :before-leave="tabBeforeLeave" >
+        <el-tab-pane label="出入站信息" name="Inout-Station">
+          <div>
+            <component :is="smtInoutStationComponents" ref="inoutStationId" :inoutStationId="inoutStationId" @inoutStationRowClick="myChangeInoutStationRowClick" > </component >
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="配料信息" name="Process-Material"  >
+          <div>
+            <component :is="smtProcessMaterialComponents" ref="processMaterialId" :processMaterialId="processMaterialId" > </component >
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="工装" name="Tool-Model"  >
+          <div>
+            <component :is="smtToolComponents" ref="toolId" :toolId="toolId" > </component >
+          </div>
+        </el-tab-pane>
+      </el-tabs>
+    </div>
+  </div>
+</template>
+
+<script>
+import waves from '@/directive/waves' // waves directive
+import elDragDialog from '@/directive/el-drag-dialog'
+import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
+import smtBarcodeInfo from './components/smtBarcodeInfo'
+import smtInoutStation from './components/smtInoutStation'
+import smtProcessMaterial from './components/smtProcessMaterial'
+import smtTool from './components/smtTool'
+
+import i18n from '@/lang' ;
+export default {
+  name: 'SMTBarcodelist',
+  components: { Pagination, smtBarcodeInfo, smtInoutStation, smtProcessMaterial, smtTool },
+  directives: { waves, elDragDialog },
+  filters: {
+    statusFilter(status) {
+      const statusMap = {
+        0: '未启用',
+        1: '启用'
+      }
+      return statusMap[status]
+    }
+  },
+  data() {
+    const _initdata = {
+      smtBarcodeInfoComponents: 'smtBarcodeInfo',
+      smtInoutStationComponents: 'smtInoutStation',
+      smtProcessMaterialComponents: 'smtProcessMaterial',
+      smtToolComponents: 'smtTool',
+      barCodeInfoId: '',
+      inoutStationId: '',
+      processMaterialId: '',
+      toolId: '',
+      activeName: 'first',
+      activeName1: 'Inout-Station'
+    }
+    return _initdata
+  },
+  created() {
+
+  },
+  methods: {
+    tabBeforeLeave(activeName, oldActiveName) {
+      if (activeName === 'Process-Material') {
+        if (this.processMaterialId == null || this.processMaterialId === '') {
+          this.$message({
+            message: '请先选择出入站记录！',
+            type: 'warning'
+          })
+          return false
+        }
+      }
+    },
+    myChangeBarCodeInfoItem(row) {
+      this.inoutStationId = row.sn || ''
+      this.toolId = row.sn || ''
+    },
+    myChangeInoutStationRowClick(row) {
+      this.processMaterialId = row.id
+      //this.$refs.processMaterialId.reloadData(row.id)
+    },
+    myChangeInoutStation(row) {
+      this.activeName1 = 'Process-Material'
+      this.$refs.processMaterialId.reloadData(row.id)
+    }
+  }
+}
+</script>
+
+<style scoped>
+.edit-input {
+
+  padding-right: 100px;
+}
+.cancel-btn {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+}
+.filter-item{
+  margin-left: 3px;
+}
+.container-body-top{
+  max-height: 50%;
+  overflow-y:auto;
+}
+.container-body-bottom{
+  width: 100%;
+  margin-top:10px ;
+  max-height: 50%;
+  overflow-y:auto;
+}
+
+</style>

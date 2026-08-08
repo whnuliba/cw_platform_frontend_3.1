@@ -1,0 +1,1 @@
+{"tabs":[{"label":"工步参数","name":"tabname1"},{"label":"保护参数","name":"tabname2"}]}

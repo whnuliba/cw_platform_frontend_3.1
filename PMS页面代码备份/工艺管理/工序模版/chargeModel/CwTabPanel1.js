@@ -1,0 +1,5 @@
+{
+    "tabs": [{ "label": "const.pageDesign.tab.protectParameters", "name": "tabname1" },
+    { "label": "const.pageDesign.tab.generalParameters", "name": "tabname2" },
+    { "label": "const.pageDesign.tab.stepParameters", "name": "tabname3" }]
+}

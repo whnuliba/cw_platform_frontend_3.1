@@ -1,0 +1,55 @@
+{
+    lazy: false,
+        formStyle: { },
+    formModes: [
+        {
+            size: 'mini',
+            loading: false,
+            display: 'inline',
+            title: '保护参数',
+            dialogVisible: 'test',
+            dialogShow: true,
+            labelWidth: '240px',
+            cancelBtnShow: true,
+            // forms:[
+
+            // ],
+            forms: [
+                //{ field: 'TEXT1', title: '8线保护参数', minWidth: 100, align: "center", queryType: 'text', set: true, require: false, query: false, hide: false },      
+                { field: 'chargeVoltUpperLimit', title: '充电电压上限(mV)', en_title: 'Charge voltage upper limit(mV)', boxWidth: '150px', minWidth: 120, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: true },
+                { field: 'constCurrVoltFluProtect', title: '恒流电压波动保护（mV）', en_title: 'Voltage fluctuation protection during Constant current(mV)', boxWidth: '150px', minWidth: 100, align: "center", queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'diffVoltCurrentLine', title: '电流电压线电压偏差限制（mV）', en_title: 'Diff of voltage with current line(mV)', boxWidth: '150px', minWidth: 100, align: "center", queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'voltBefStartUpLowerLimit', title: '启动前电压检测下限（mV）', en_title: 'Voltage detection before startup lower limit(mV)', boxWidth: '150px', minWidth: 100, align: "center", queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'averageVoltDeviationUpperLimit', title: '平均电压偏差检测偏差上限（mV）', en_title: 'Average voltagedeviation detection upper limit(mV)', boxWidth: '150px', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'dischargeVoltLowerLimit', title: '放电电压下限（mV）', en_title: 'Discharge voltage lower limit(mV)', boxWidth: '150px', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'voltFluProtectConsVolt', title: '恒压电压波动保护（mV）', en_title: 'Voltage fluctuation protection during Constant voltage(mV)', boxWidth: '150px', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'DeltaV', title: 'DeltaV监测（mV）', en_title: 'DeataV(mV)', boxWidth: '150px', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'voltBefStartUpUpperLimit', title: '启动前电压检测上限（mV）', en_title: 'Voltage detection before startup upper limit(mV)', boxWidth: '150px', minWidth: 120, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'averageVoltDeviationDetectionDelay', title: '平均电压偏差检测延时（s）', en_title: 'Average voltagedeviation detection detection delay(s)', boxWidth: '150px', minWidth: 120, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'voltageDropContinueCharge', title: '充电时电压连续下降（mV）', en_title: 'Voltage drop continue during charge(mV)', boxWidth: '150px', minWidth: 120, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'dischargeVoltRiseLimit', title: '放电电压上升限制（mV）', en_title: 'Discharge voltage rise limit(mV)', boxWidth: '150px', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'fixedTimeMinVoltDetection', title: '定时刻最小电压检测（mV）', en_title: 'Fixed-time minmum voltage detection(mV)', boxWidth: '150px', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'voltBefStartUpAllowNGQuality', title: '启动前电压检测允许NG个数', en_title: 'Voltage before start up allow ng quantity', boxWidth: '150px', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'consecutiveTime', title: '连续次数', en_title: 'Consecutive times', boxWidth: '150px', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'dischargeVoltRiseInstant', title: '放电电压瞬间上升保护（mV）', en_title: 'Discharge voltage rise instant(mV)', boxWidth: '150px', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'MinVoltDetectionSetTime', title: '定时刻[最小电压检测]（Min）', en_title: 'Fixed-time minmum voltage detection(Min)', boxWidth: '150px', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'voltDropDuringCharge', title: '充电中电压下降（mV）', en_title: 'Voltage drop during charging(mV)', boxWidth: '150px', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'voltRiseInstantDuringCharge', title: '充电中瞬间电压上升（mV）', en_title: 'Voltage rise instant during charging(mV)', boxWidth: '150px', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'cumulativeNumTimes', title: '累计次数', en_title: 'Cumulative number of times', boxWidth: '150px', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'voltDropInstantDuringCharge', title: '充电中瞬间电压下降（mV）', en_title: 'Voltage drop instant during charging(mV)', boxWidth: '150px', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'busVoltProtection', title: '母线电压保护（mV）', en_title: 'Bus voltage protection(mV)', boxWidth: '150px', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'chargeCurrentUpperLimit', title: '充电电流上限（mA）', en_title: 'Charge current upper limit(mA)', boxWidth: '150px', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'currentFluProtection', title: '电流波动保护（mA）', en_title: 'Current fluctuation protection(mA)', boxWidth: '150px', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'currentContinueRiseProtectWhileCVC', title: '恒压电流连续上升保护（mA）', en_title: 'Current continuous rise protection while CVC(mA)', boxWidth: '150px', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'disChargeCurrentUpperLimit', title: '放电电流上限（mA）', en_title: 'Discharge current upper limit(mAh)', boxWidth: '150px', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'DeltaI', title: 'DeltaI监测（mA）', en_title: 'DeltaI(mA)', boxWidth: '150px', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'currentRiseInstantWhileCVC', title: '恒压电流瞬间上升保护（mA）', en_title: 'Current rise instant protection while CVC(mA)', boxWidth: '150px', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'chargeCapacityUpperLimit', title: '充电容量上限（mAH）', en_title: 'Charge capacity upper limit(mAh)', boxWidth: '150px', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'chargeTimeLimit', title: '充电时间限制（Min）', en_title: 'Charge time limit(Min)', boxWidth: '150px', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'dischargeCapacityUpperLimit', title: '放电容量上限（mAH）', en_title: 'Discharge capacity upper limit(mAh)', boxWidth: '150px', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+                { field: 'dischargeLimit', title: '放电时间限制（Min）', en_title: 'Discharge time limit(Min)', boxWidth: '150px', minWidth: 100, align: 'center', queryType: 'input', set: true, require: false, query: false, hide: false },
+
+            ],
+        }
+    ]
+}
