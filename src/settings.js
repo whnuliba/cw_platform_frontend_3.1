@@ -1,5 +1,5 @@
 module.exports = {
-  title: 'CHR FMS',
+  title: 'HQ WCS',
 
   /**
    * @type {boolean} true | false

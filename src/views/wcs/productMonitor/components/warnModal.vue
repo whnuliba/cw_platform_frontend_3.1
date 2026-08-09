@@ -13,30 +13,30 @@
               :row-class-name="tableRowClassName"
               style="width: 100%">
                 <el-table-column
-                  label="消息类型"
-                  width="100" align="center">
+                  :label="$t('common.message.messageType')"
+                  width="120" align="center">
                   <template slot-scope="{row}">{{row['MessageLevel'] | formatMessageLevel}}</template>
                 </el-table-column>
                 <el-table-column
-                  label="日期"
+                  :label="$t('common.message.date')"
                   width="180">
                   <template slot-scope="{row}">{{row['SendTime'] | formatTimer}}</template>
                 </el-table-column>
                 <el-table-column
                   prop="NoticeFrom"
-                  label="来源"
+                  :label="$t('common.message.source')"
                   width="350">
                 </el-table-column>
                 <el-table-column
                   prop="MessageText"
-                  label="信息">
+                  :label="$t('common.message.info')">
                 </el-table-column>
             </el-table>
       </el-col>
       <el-col :span="2" >
         <div style="padding: 5px 5px 10px 5px;">
           <div class="radiobox">
-            <span>错误:</span>
+            <span>{{$t('const.messageType.error')}}:</span>
             <el-switch
               v-model="value1"
               class="switchStyle"
@@ -46,7 +46,7 @@
             </el-switch>
           </div>
           <div class="radiobox">
-            <span>警告:</span>
+            <span>{{$t('const.messageType.warn')}}:</span>
             <el-switch
               v-model="value2"
               active-color="RGB(64,158,24)"
@@ -55,7 +55,7 @@
             </el-switch>
           </div>
           <div class="radiobox">
-            <span>信息:</span>
+            <span>{{$t('const.messageType.info')}}:</span>
             <el-switch
               v-model="value3"
               active-color="RGB(64,158,24)"
@@ -63,7 +63,7 @@
               @change="value3Change">
             </el-switch>
           </div>
-          <el-button type="primary" @click="clear" size="medium">清空</el-button>
+          <el-button type="primary" @click="clear" size="medium">{{$t('common.btn.clear')}}</el-button>
     </div>
       </el-col>
     </el-row>
@@ -83,8 +83,8 @@
 </template>
 
 <script>
-  // import vueSeamlessScroll from 'vue-seamless-scroll'
-  // import mqtt from 'mqtt' // 引入mqtt模块
+  import vueSeamlessScroll from 'vue-seamless-scroll'
+  import mqtt from 'mqtt' // 引入mqtt模块
   const ipSettings = require('@/globalSetting.js')
   // import configl  from "../../../../vue.config.js"
   // import API_CONFIG from "../../../../vue.config.js";
@@ -159,9 +159,9 @@
         formatMessageLevel: function(val){
 
           const statusMap = {
-            1: '信息',
-            2: '警告',
-            3: '错误'
+            1: 'info',
+            2: 'warn',
+            3: 'error'
           }
           return statusMap[val]
         }
@@ -184,7 +184,7 @@
                ip = ip.replace(/https/,"wss");
             // console.log(ip)
             // this.client = mqtt.connect(`${ws}://${host}:${port}/mq`, this.options)
-            // this.client = mqtt.connect(`${ip}/mq`, this.options)
+            this.client = mqtt.connect(`${ip}/mq`, this.options)
           } catch (error) {
           }
           // 接收消息处理
@@ -296,7 +296,7 @@
       },
       created() {
       },
-      Destroyed(){
+      destroyed(){
         this.doDisconnected()
       },
       // 生命周期 - 挂载完成（可以访问DOM元素）

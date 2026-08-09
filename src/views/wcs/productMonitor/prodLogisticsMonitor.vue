@@ -34,7 +34,7 @@
                    </ul>
                     <!-- 模态框 -->
                     <!-- 输送线弹出框 -->
-                    <el-dialog width="70%" v-el-drag-dialog :visible.sync="dialogFormVisible" :title="translateText('deviceInfo')"  :modal="false" customClass="nodeModal" @close="closeDialog">
+                    <el-dialog width="70%" v-el-drag-dialog :visible.sync="dialogFormVisible" :title="translateText('deviceInfo')"  :modal="false"  customClass="nodeModal" @close="closeDialog">
                                     <!-- 功能按钮 -->
                                     <el-row class="specialbutton">
                                         <el-button type="danger" icon="el-icon-delete" @click="clearPlc" round>{{translateText('clearPLC')}}</el-button>
@@ -204,6 +204,40 @@
                                                     </el-col>
                                                 </div>
                                             </el-row> 
+                                            </el-form>
+                                        </el-tab-pane>
+                                        <el-tab-pane :label="translateText('waterTankInfo')" name="Fourth" v-if="temp.eqType==='盐水箱'">
+                                            <el-form ref="dataForm" class="dataForm" :model="waterTemp"  label-width="100px" :close-on-click-modal="false">
+                                                    <el-form-item  v-for="(item,i) in waterColumns"  :key="i" label-width="170px" :label="commonI18n(item)" :prop="item.field">
+                                                            <div  v-if='item.field==="waterStatus"'>
+                                                                <el-tag type="success" v-if='waterTemp[item.field]===false'>Allowed{{ "("+waterTemp[item.label]+')' }}</el-tag>
+                                                                <el-tag type="danger" v-else>Not allowed{{ "("+waterTemp[item.label]+')' }}</el-tag>   
+                                                            </div>
+                                                            <div v-else-if='item.field==="operationMode"'>
+                                                                <el-tag type="success" v-if='waterTemp[item.field]===false'>auto{{ "("+waterTemp[item.label]+')' }}</el-tag>
+                                                                <el-tag  v-else>manual{{ "("+waterTemp[item.label]+')' }}</el-tag>   
+                                                            </div>
+                                                        <!-- <el-switch
+                                                            v-if='item.field==="WaterStatus"'
+                                                            v-model="waterTemp[item.field]"
+                                                            :disabled='item.readonly'
+                                                            active-color="#13ce66"
+                                                            inactive-color="#ff4949"
+                                                            active-text="auto"
+                                                            inactive-text="manual"
+                                                            >
+                                                        </el-switch>
+                                                        <el-switch
+                                                            v-else
+                                                            v-model="waterTemp[item.field]"
+                                                            :disabled='item.readonly'
+                                                            active-color="#13ce66"
+                                                            inactive-color="#ff4949"
+                                                            active-text="Allowed"
+                                                            inactive-text="Not allowed"
+                                                            >
+                                                        </el-switch> -->
+                                                    </el-form-item>     
                                             </el-form>
                                         </el-tab-pane>
                                     </el-tabs>
@@ -477,7 +511,7 @@
     const Make = go.GraphObject.make;
     let redArr = [],timeDelay = 0;
     export default {
-        name:"prodLogistics Monitor",
+        name:"prodLogisticsMonitor",
         components: { elImageViewer, contextModal,layOrPickModal,contextViewModal,currenTray,
                       scanModal,missionInformation,plcSupplement,stackerPath,stackerMask,stockBtnInfoModal,warnModal },
         directives: { elDragDialog },
@@ -488,7 +522,8 @@
                 modalScanInfo:{
                         locNum:undefined,
                         carryType:undefined,
-                        checkFlag:undefined,
+                        checkFlag_PLC:undefined,
+                        checkFlag_PC:undefined,
                         trayNum:undefined,
                         trayBarCode:undefined,
                     },
@@ -503,6 +538,7 @@
                     deviceInfo:{zh:'设备信息',en:"Device info",vn:"Thông tin thiết bị"},
                     pltInfo:{zh:'托盘信息',en:"Plt info",vn:"Thông tin pallet"},
                     staInfo:{zh:'站台信息',en:"Station info",vn:"Thông tin trang web"},
+                    waterTankInfo :{zh:'水箱设备信息',en:"water tank info",vn:"Thông tin bể nước"},
                     roadInfo:{zh:'路径信息',en:"Road info",vn:"thông tin đường dẫn"},
                     taskInfo:{zh:'任务信息',en:"Task info",vn:"Thông tin nhiệm vụ"},
                     addPLC:{zh:'PLC补录',en:"Add PLC",vn:"Ghi bổ sung PLC"},
@@ -535,7 +571,8 @@
                     location:{zh:'当前位置',en:"location",vn:"vị trí hiện tại"},
                     postFlag:{zh:'下发状态',en:"postFlag",vn:"Tình trạng giao hàng"},
                     rowNum:{zh:'排号区域',en:"rowNum",vn:"Khu vực đánh số"},
-                    checkFlag:{zh:'交互标识',en:"checkFlag",vn:"nhận dạng tương tác"},
+                    checkFlag_PLC:{zh:'信号_PLC',en:"checkFlag_PLC",vn:"nhận dạng tương tác"},
+                    checkFlag_PC:{zh:'信号_PC',en:"checkFlag_PC",vn:"nhận dạng tương tác"},
                     command:{zh:'下发的指令',en:"command",vn:"Hướng dẫn ban hành"},
                     doing:{zh:'正在搬运',en:"doing",vn:"Di chuyển"},
                     waiting:{zh:'等待搬运',en:"waiting",vn:"Đang chờ vận chuyển"}
@@ -892,6 +929,16 @@
                     maxLayer: undefined,
                     remark: undefined,
                     useState: undefined,
+                },
+                waterColumns:[
+                    {label: '水箱放货状态',field: 'waterStatus', readonly:true},
+                    {label: '操作方式',field: 'operationMode', readonly:true},
+                ],
+                waterTemp:{
+                    水箱放货状态:'',
+                    waterStatus: false,
+                    操作方式:'',
+                    operationMode: false,
                 },
                 dialogFormVisible: false,
                 showviewer: false,
@@ -1508,6 +1555,10 @@
                     this.radioSwitchData = [];
                     this.trayTemp = {};
                 }
+
+                //水箱信息
+                console.log(this.waterTemp)
+                this.waterTemp = data.waterStatusDto
                 }).catch(err => {
                     console.error(err)
                 })
@@ -1923,7 +1974,7 @@
                             "undoManager.isEnabled": false  //isEnabled属性设置为true，以便UndoManager记录更改并让用户执行撤消或重做操作
                         });
                 myDiagram.grid.visible = false;  //是否增加网格背景
-                myDiagram.toolManager.panningTool.isEnabled = false
+                myDiagram.toolManager.panningTool.isEnabled = true
                 // 图形改变后触发的方法
                 myDiagram.addDiagramListener("Modified", e => { });
 
@@ -2008,7 +2059,7 @@
                             ), //shape块
                             Make(go.TextBlock,
                                 {
-                                    font: "Bold 6px Lato, sans-serif",
+                                    font: "Bold 10px Lato, sans-serif",
                                     editable: true,
                                     textAlign: "center",
                                     maxSize: new go.Size(100, NaN),
@@ -2048,7 +2099,7 @@
                             Make(go.TextBlock,
                                 {
                                     alignment: go.Spot.TopCenter,
-                                    font: "bold 9px sans-serif",
+                                    font: "bold 10px sans-serif",
                                     stroke:'black',
                                 },
                                 new go.Binding("text", "groupText").makeTwoWay(),
@@ -2182,7 +2233,8 @@
                         _this.modalScanInfo = {
                             locNum:data.ctrlCode,
                             carryType:data.carryType,
-                            checkFlag:data.checkFlagNum,
+                            checkFlag_PLC:data.checkFlag_PLC,
+                            checkFlag_PC:data.checkFlag_PC,
                             trayNum:data.trayNum,
                             trayBarCode:data.trayBarCode,
                             };
@@ -2247,7 +2299,8 @@
                                 info = `${ data.eqType ? _this.translateText('deviceType')+':'+ data.eqType : '' }
                                     ${ data.carryType ? _this.translateText('carryType')+':' + data.carryType : ''}
                                     ${ data.ctrlCode ? _this.translateText('ctrlCode')+':' + data.ctrlCode : ''}
-                                    ${ data.checkFlag ? _this.translateText('checkFlag')+':' + data.checkFlag : ''}
+                                    ${ data.checkFlag_PLC ? _this.translateText('checkFlag_PLC')+':' + data.checkFlag_PLC : ''}
+                                    ${ data.checkFlag_PC ? _this.translateText('checkFlag_PC')+':' + data.checkFlag_PC : ''}
                                     `;
                                     break;
                             case 'OCV':
@@ -2719,6 +2772,7 @@
                                            }
                                            NewData[0].isFire = NewData[0].isFire ? this.$t('const.yesNo.yes') : this.$t('const.yesNo.no');
                                            this.modalTempOne = NewData[0];
+                                           this.modalTempTwo = stackTaskData;
                                        }
                                        
                                     })
@@ -2919,54 +2973,62 @@
                                 let nodeScan = null;
                                 nodeScan = this.diagram.model.findNodeDataForKey(node.key);
                                 this.diagram.model.setDataProperty(nodeScan,"st",'gray');
-                                this.diagram.model.setDataProperty(nodeScan,"checkFlagNum",scan.checkFlag);
+                                this.diagram.model.setDataProperty(nodeScan,"checkFlag_PLC",scan.checkFlag_PLC);
+                                this.diagram.model.setDataProperty(nodeScan,"checkFlag_PC",scan.checkFlag_PC);
                                 this.diagram.model.setDataProperty(nodeScan,"trayBarCode",scan.trayBarCode);
                                 this.diagram.model.setDataProperty(nodeScan,"trayNum",scan.trayNum);
-                                switch (scan.checkFlag) {
+                                switch (scan.checkFlag_PLC) {
                                              case 0:  // 默认
                                                  nodeScan = this.diagram.model.findNodeDataForKey(node.key);
                                                  this.diagram.model.setDataProperty(nodeScan,"color",'gray');
-                                                 this.diagram.model.setDataProperty(nodeScan,"checkFlag",this.$t('const.scanState.null'));
+                                               //  this.diagram.model.setDataProperty(nodeScan,"checkFlag_PLC",this.$t('const.scanState.null'));
                                                  break;
                                              case 1: // 扫码完成
                                                  nodeScan = this.diagram.model.findNodeDataForKey(node.key);
                                                  this.diagram.model.setDataProperty(nodeScan,"color",'green');
-                                                 this.diagram.model.setDataProperty(nodeScan,"checkFlag",this.$t('const.scanState.scanned'));
+                                               //  this.diagram.model.setDataProperty(nodeScan,"checkFlag_PLC",this.$t('const.scanState.scanned'));
                                                  break;
+                             
+                                             case 11: // 入库请求
+                                                 nodeScan = this.diagram.model.findNodeDataForKey(node.key);
+                                                 this.diagram.model.setDataProperty(nodeScan,"color",'rgba(128, 128, 128, 0.5)');
+                                               //  this.diagram.model.setDataProperty(nodeScan,"checkFlag_PLC",this.$t('const.scanState.inboundRequest'));
+                                                 break;
+                       
+                                             default:
+                                                 break;
+                                         }
+                                 switch (scan.checkFlag_PC) {
+                        
                                              case 2: // 比对完成
                                                  nodeScan = this.diagram.model.findNodeDataForKey(node.key);
                                                  this.diagram.model.setDataProperty(nodeScan,"color",'blue');
-                                                 this.diagram.model.setDataProperty(nodeScan,"checkFlag",this.$t('const.scanState.matched'));
+                                               //  this.diagram.model.setDataProperty(nodeScan,"checkFlag_PC",this.$t('const.scanState.matched'));
                                                  break;
                                              case 3: // 比对失败
                                                  nodeScan = this.diagram.model.findNodeDataForKey(node.key);
                                                  this.diagram.model.setDataProperty(nodeScan,"color",'yellow');
-                                                 this.diagram.model.setDataProperty(nodeScan,"checkFlag",this.$t('const.scanState.matchFail'));
+                                               //  this.diagram.model.setDataProperty(nodeScan,"checkFlag_PC",this.$t('const.scanState.matchFail'));
                                                  break;
                                              case 9: // 申请重扫
                                                  nodeScan = this.diagram.model.findNodeDataForKey(node.key);
                                                  this.diagram.model.setDataProperty(nodeScan,"color",'rgba(128, 128, 128, 0.5)');
-                                                 this.diagram.model.setDataProperty(nodeScan,"checkFlag",this.$t('const.scanState.Rescan'));
+                                                // this.diagram.model.setDataProperty(nodeScan,"checkFlag_PC",this.$t('const.scanState.Rescan'));
                                                  break;
-                                             case 11: // 入库请求
-                                                 nodeScan = this.diagram.model.findNodeDataForKey(node.key);
-                                                 this.diagram.model.setDataProperty(nodeScan,"color",'rgba(128, 128, 128, 0.5)');
-                                                 this.diagram.model.setDataProperty(nodeScan,"checkFlag",this.$t('const.scanState.inboundRequest'));
-                                                 break;
+                                   
                                              case 12: // 入库成功
                                                  nodeScan = this.diagram.model.findNodeDataForKey(node.key);
                                                  this.diagram.model.setDataProperty(nodeScan,"color",'green');
-                                                 this.diagram.model.setDataProperty(nodeScan,"checkFlag",this.$t('const.scanState.inboundRequest'));
+                                                // this.diagram.model.setDataProperty(nodeScan,"checkFlag_PC",this.$t('const.scanState.inboundRequest'));
                                                  break;
                                              case 13: // 入库失败
                                                  nodeScan = this.diagram.model.findNodeDataForKey(node.key);
                                                  this.diagram.model.setDataProperty(nodeScan,"color",'red');
-                                                 this.diagram.model.setDataProperty(nodeScan,"checkFlag",this.$t('const.scanState.importFail'));
+                                                // this.diagram.model.setDataProperty(nodeScan,"checkFlag_PC",this.$t('const.scanState.importFail'));
                                                  break;
                                              default:
                                                  break;
-                                         }
-                                         
+                                         }        
                             }
                         })
                         if (!scanExist) {

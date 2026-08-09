@@ -68,13 +68,7 @@ export default {
     },
     dateProps: {type: String},
   },
-  watch: {
-    //    scanVisible: {
-    //         handler(newC,oldC) {
-    //             this.initData();
-    //             },    
-    //     },
-  },
+
   computed: {},
   data() {
     return {
@@ -83,14 +77,16 @@ export default {
       modalTemp:{
           locNum:undefined,
           carryType:undefined,
-          checkFlag:undefined,
+          checkFlag_PLC:undefined,
+          checkFlag_PC:undefined,
           trayNum:undefined,
           trayBarCode:undefined,
       },
       lpColumns: [
                     {key:'carryType',label:'所在区域',disabled:true},
                     {key:'locNum',label:'站台编号',disabled:true},
-                    {key:'checkFlag',label:'交互标识',type:'select'},
+                    {key:'checkFlag_PLC',label:'信号_PLC',type:'select',disabled:true},
+                    {key:'checkFlag_PC',label:'信号_PC',type:'select'},
                     {key:'trayNum',label:'托盘编号',disabled:true},
                     {key:'trayBarCode',label:'托盘条码',disabled:true},
                 ],
@@ -106,28 +102,7 @@ export default {
 
   },
   methods: {
-      initData(){
-          let data = {
-                url:'/api/Scaner/GetScanerInfo',
-                params: {
-                    data: {
-                        carryType: this.scanCarryType,
-                        locNum: this.locationNum,
-                    }
-                }
-              };
-          this.$store.dispatch('fmsCommon/actionWcsPost',data).then(data => {
-              this.modalTemp = data;
-            if(this.scancheckFlag){
-                this.modalTemp.checkFlag = this.scancheckFlag
-            }else{
-                this.modalTemp.checkFlag = 0
-            };
-          }).catch(err => {
-              console.error(err)
-          })
-
-      },
+    
       selData() {
         // 交互标识数据
         let _data = {url:'/api/Const/ScanerCheckFlag',params: {}}

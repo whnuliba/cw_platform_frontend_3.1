@@ -149,6 +149,9 @@ export default {
                  carryType: this.domobjData.carryType,
               },
           }
+          if(this.domobjData.carryType == 206 || this.domobjData.carryType == 207){
+            params2.requestData.toLocType = 6
+          }
           this.lineApi(params1,params2)
         }
       }
