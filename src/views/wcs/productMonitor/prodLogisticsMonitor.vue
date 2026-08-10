@@ -2841,8 +2841,49 @@
                     });
                 
             },
+            plcTask(){
+      
+          let nodes = this.monitorNodeData.map(item => item.key);
+               this.monitorNodeData.forEach(node => {
+         if (node.eqType === '输送线' || node.eqType === '圆盘'|| node.eqType === 'OCV' 
+                            || node.eqType === 'DCIR'|| node.eqType === '拔钉机'|| node.eqType === '预充电柜' || node.eqType === '盐水箱') {
+                           let nodeSet = this.diagram.model.findNodeDataForKey(node.key);
+                           this.diagram.model.setDataProperty(nodeSet,"color",'rgba(128, 128, 128, 0.5)');
+                           this.diagram.model.setDataProperty(nodeSet,"st","gray");
+                       }
+               })
+               for(let i = 100;i >= 0;i--){
+                   let index = Math.floor(Math.random() * nodes.length);              
+                   let key = nodes[index]     
+                   let node = this.monitorNodeData.filter(item => item.key === key)[0];
+                   if (node.key === key) {
+                       if (node.eqType === '输送线' || node.eqType === '圆盘'|| node.eqType === 'OCV' 
+                            || node.eqType === 'DCIR'|| node.eqType === '拔钉机'|| node.eqType === '预充电柜' || node.eqType === '盐水箱') {
+                           let nodeSet = this.diagram.model.findNodeDataForKey(node.key);
+                           //this.diagram.model.setDataProperty(nodeSet,"color",'rgba(128, 128, 128, 0.5)'); 
+                            this.diagram.model.setDataProperty(nodeSet,"color",'rgba(0,255,0,0.5)');
+                           this.diagram.model.setDataProperty(nodeSet,"st","blue");
+                       }
+                   }
+               }
+               //模拟报警
+               let nodes1 = this.monitorNodeData.map(item => item.key);
+               let index = Math.floor(Math.random() * nodes1.length);              
+               let key = nodes1[index]  
+               this.monitorNodeData.forEach(node => {
+                   if (node.key === key) {
+                       if (node.eqType === '输送线' || node.eqType === '圆盘'|| node.eqType === 'OCV' 
+                            || node.eqType === 'DCIR'|| node.eqType === '拔钉机'|| node.eqType === '预充电柜' || node.eqType === '盐水箱') {
+                           let nodeSet = this.diagram.model.findNodeDataForKey(node.key);
+                           this.diagram.model.setDataProperty(nodeSet,"color",'red'); 
+                           this.diagram.model.setDataProperty(nodeSet,"st","red");
+                       }
+                   }
+               })
+             },
             // PLC设备 监控请求
-            plcTask() {
+            plcTask1() {
+                //console.log(this.monitorNodeData.map(item => item.key))
                 // 传输线设备监控
                 let conveyParams = {url: '/api/PlcData/ConveryorPlc', params: this.initChartParam}; //输送线设备信息和任务信息
                 let newMonitorData = this.monitorNodeData.filter(node => node.eqType === '输送线' || node.eqType === '圆盘'|| node.eqType === 'OCV' 

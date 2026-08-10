@@ -429,6 +429,18 @@ var language = {
       responseContent: '响应内容',
       beforeModify: '修改前',
       afterModify: '修改后',
+      clear: '清除',
+      upload: '上传',
+      download: '下载',
+      downloadTemplate: '下载模板',
+      uploadSuccess: '上传成功',
+      uploadFail: '上传失败',
+      uploadError: '上传异常',
+      uploadFileTypeError: '上传文件类型错误',
+      uploadFileSizeError: '上传文件大小超过限制',
+      uploadFileCountError: '上传文件数量超过限制',
+      uploadFileNameError: '上传文件名错误',
+      uploadFileExistError: '上传文件已存在', 
     },
 
 
@@ -575,6 +587,12 @@ var language = {
       not_null: '不能为空',
       cellBarCode_multi: '请输入多个电芯条码,多个分号隔开'
     }
+    ,message: {
+      messageType: '消息类型',
+      source: '消息内容',
+      date: '消息时间',  
+      info: '消息内容',
+    }
   },
   fire: {
     start: '启动监控',
@@ -592,6 +610,11 @@ var language = {
       male:'男',
       secret:'保密'
     },
+    messageType:{
+      error:'错误',
+      warn:'警告',
+      info:'信息'
+     },
     useState:{
       normal:'正常',
       abnormal:'异常',

@@ -405,6 +405,18 @@ var language = {
       responseContent: 'ResponseMsg',
       beforeModify: 'BeforeModify',
       afterModify: 'AfterModify',
+            clear: 'Clear',
+      upload: 'Upload',
+      download: 'Download',
+      downloadTemplate: 'Download Template',
+      uploadSuccess: 'Upload Successful',
+      uploadFail: 'Upload Failed',
+      uploadError: 'Upload Error',
+      uploadFileTypeError: 'Upload File Type Error',
+      uploadFileSizeError: 'Upload File Size Error',
+      uploadFileCountError: 'Upload File Count Error',
+      uploadFileNameError: 'Upload File Name Error',
+      uploadFileExistError: 'Upload File Exists Error', 
     },
 
     fms2mesList:{
@@ -522,6 +534,12 @@ var language = {
       this_process: 'this process??',
       not_null: ' cannot be empty',
       cellBarCode_multi: 'Please enter multiple cellBarCode,separated by multiple semicolons'
+    },
+    message: {
+      messageType: 'Message Type',
+      source: 'Message Content',
+      date: 'Message Time',  
+      info: 'Message Info',
     }
   },
   fire: {
@@ -540,6 +558,11 @@ var language = {
       male:'male',
       secret:'secret'
     },
+    messageType:{
+      error:'Error',
+      warn:'Warning',
+      info:'Info'
+     },
     useState:{
       normal:'normal',
       abnormal:'abnormal',
