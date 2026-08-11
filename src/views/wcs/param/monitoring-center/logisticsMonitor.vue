@@ -533,7 +533,11 @@ export default {
     };
   },
   // 初始化
-  created() {},
+  created() {
+
+               console.log(111,this.nodeLoc)
+
+  },
   mounted() {
     this.init();
     this.listLoading = true;
@@ -649,6 +653,7 @@ export default {
       }
     },
     addNode() {
+     
       // 自动设置节点货位编码
       let _this = this;
       let { x, y, z, startRowNum, node_direc } = this.nodeTemp;
